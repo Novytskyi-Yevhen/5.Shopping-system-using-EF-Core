@@ -1,0 +1,39 @@
+﻿@using TaskEFC.Models
+@model IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    
+</style>
+<h1>Supermarkets</h1>
+<a asp-action="Create">Create New</a>
+<table class="table">
+    <tr><th>Name</th><th>Address</th><th>Action</th></tr>
+    @foreach (Supermarket u in Model.supermarkets)
+    {
+        <tr><td>@u.Name</td><td>@u.Address</td><td>
+        @Html.ActionLink("Edit", "Edit", new { id = u.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = u.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = u.Id })
+    </td></tr>
+    }
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Previous
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+        Next
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
